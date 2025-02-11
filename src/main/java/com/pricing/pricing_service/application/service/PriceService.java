@@ -5,7 +5,7 @@ import com.pricing.pricing_service.domain.repository.PriceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +17,7 @@ public class PriceService {
 
 
     public Optional<Price> getApplicablePrice(Long productId, Long brandId,
-                                              LocalDate applicationDate) {
+                                              LocalDateTime applicationDate) {
 
         List<Price> pricesList = priceRepository.findApplicablePrices(productId, brandId,
                 applicationDate);

@@ -6,7 +6,7 @@ import com.pricing.pricing_service.infrastructure.mapper.PriceMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -18,7 +18,7 @@ public class PriceRepositoryImpl implements PriceRepository {
 
     @Override
     public List<Price> findApplicablePrices(Long productId, Long brandId,
-                                            LocalDate applicationDate) {
+                                            LocalDateTime applicationDate) {
 
         return priceMapper.toDomainList(
                 priceJpaRepository.findApplicablePrices(productId, brandId, applicationDate));

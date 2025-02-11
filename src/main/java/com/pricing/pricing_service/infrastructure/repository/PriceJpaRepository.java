@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -17,12 +17,12 @@ public interface PriceJpaRepository extends JpaRepository<PriceJpaEntity, Long> 
             WHERE p.productId = :productId
             AND p.brandId = :brandId
             AND p.startDate <= :applicationDate
-            AND p.endDate >= :date
+            AND p.endDate >= :applicationDate
             ORDER BY p.priority DESC
             """)
     List<PriceJpaEntity> findApplicablePrices(
             @Param("productId") Long productId,
             @Param("brandId") Long brandId,
-            @Param("applicationDate") LocalDate applicationDate
+            @Param("applicationDate") LocalDateTime applicationDate
     );
 }
