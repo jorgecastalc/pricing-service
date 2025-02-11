@@ -2,6 +2,7 @@ package com.pricing.pricing_service.infrastructure.repository;
 
 import com.pricing.pricing_service.domain.model.Price;
 import com.pricing.pricing_service.domain.repository.PriceRepository;
+import com.pricing.pricing_service.infrastructure.mapper.PriceMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -13,9 +14,13 @@ import java.util.List;
 public class PriceRepositoryImpl implements PriceRepository {
 
     private final PriceJpaRepository priceJpaRepository;
-    
+    private final PriceMapper priceMapper;
+
     @Override
-    public List<Price> findApplicablePrices(Long productId, Long brandId, LocalDate date) {
-        return List.of();
+    public List<Price> findApplicablePrices(Long productId, Long brandId,
+                                            LocalDate applicationDate) {
+
+        return priceMapper.toDomainList(
+                priceJpaRepository.findApplicablePrices(productId, brandId, applicationDate));
     }
 }
