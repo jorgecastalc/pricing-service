@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/prices")
@@ -27,13 +26,11 @@ public class PriceController {
     public ResponseEntity<PriceResponse> getPrice(@RequestParam Long productId,
                                                   @RequestParam Long brandId,
                                                   @RequestParam @DateTimeFormat(
-                                                          iso = DateTimeFormat.ISO.DATE) LocalDateTime applicationDate) {
+                                                          iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime applicationDate) {
 
-        Optional<Price> applicablePrice = priceService.getApplicablePrice(productId, brandId,
+        Price applicablePrice = priceService.getApplicablePrice(productId, brandId,
                 applicationDate);
+        return ResponseEntity.ok(priceMapper.toResponse(applicablePrice));
 
-
-        return applicablePrice.map(priceMapper::toResponse).map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
