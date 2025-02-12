@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,10 +18,7 @@ public class PriceService {
     public Price getApplicablePrice(Long productId, Long brandId,
                                     LocalDateTime applicationDate) {
 
-        List<Price> pricesList = priceRepository.findApplicablePrices(productId, brandId,
-                applicationDate);
-
-        return pricesList.stream().findFirst()
+        return priceRepository.findApplicablePrice(productId, brandId, applicationDate)
                 .orElseThrow(
                         () -> new PriceException(productId, brandId, applicationDate.toString()));
     }

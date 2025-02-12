@@ -11,7 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -39,8 +39,8 @@ class PriceServiceTest {
         Price expectedPrice = new Price(brandId, applicationDate, applicationDate.plusHours(10),
                 1, productId, 0, new BigDecimal("35.50"), "EUR");
 
-        when(priceRepository.findApplicablePrices(productId, brandId, applicationDate))
-                .thenReturn(List.of(expectedPrice));
+        when(priceRepository.findApplicablePrice(productId, brandId, applicationDate))
+                .thenReturn(Optional.of(expectedPrice));
 
         // When
         Price actualPrice = priceService.getApplicablePrice(productId, brandId, applicationDate);
@@ -48,7 +48,7 @@ class PriceServiceTest {
         // Then
         assertNotNull(actualPrice);
         assertEquals(expectedPrice.getPrice(), actualPrice.getPrice());
-        verify(priceRepository, times(1)).findApplicablePrices(productId, brandId, applicationDate);
+        verify(priceRepository, times(1)).findApplicablePrice(productId, brandId, applicationDate);
     }
 
     @Test
@@ -58,12 +58,12 @@ class PriceServiceTest {
         Long brandId = 1L;
         LocalDateTime applicationDate = LocalDateTime.of(2020, 6, 14, 10, 0);
 
-        when(priceRepository.findApplicablePrices(productId, brandId, applicationDate))
-                .thenReturn(List.of());
+        when(priceRepository.findApplicablePrice(productId, brandId, applicationDate))
+                .thenReturn(Optional.empty());
 
         // When & Then
         assertThrows(PriceException.class,
                 () -> priceService.getApplicablePrice(productId, brandId, applicationDate));
-        verify(priceRepository, times(1)).findApplicablePrices(productId, brandId, applicationDate);
+        verify(priceRepository, times(1)).findApplicablePrice(productId, brandId, applicationDate);
     }
 }

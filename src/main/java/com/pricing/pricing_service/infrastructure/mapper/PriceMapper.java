@@ -5,12 +5,10 @@ import com.pricing.pricing_service.infrastructure.controller.dto.PriceResponse;
 import com.pricing.pricing_service.infrastructure.entity.PriceJpaEntity;
 import org.mapstruct.Mapper;
 
-import java.util.List;
-
 @Mapper(componentModel = "spring")
 public interface PriceMapper {
 
-    List<Price> toDomainList(List<PriceJpaEntity> priceJpaEntities);
+    Price toDomain(PriceJpaEntity priceJpaEntity);
 
     PriceResponse toResponse(Price price);
 
