@@ -3,6 +3,7 @@
 ## 📖 Descripción del proyecto
 
 Servicio REST desarrollado con **Spring Boot** que permite consultar el precio a aplicar para un producto en función de la fecha y marca del producto.
+
 📌 En caso de solapamiento de tarifas para un mismo periodo de tiempo, el precio aplicado será el de **mayor prioridad**.
 
 ### Tecnologias usadas
