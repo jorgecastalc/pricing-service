@@ -19,7 +19,7 @@ Servicio REST desarrollado con **Spring Boot** que permite consultar el precio a
 El proyecto sigue una **arquitectura hexagonal** con la siguiente estructura:
 
 #### *Infrastructure*
-- `PriceController`: Recibe las petición HTTP y la pasa al servicio
+- `PriceController`: Recibe las petición HTTP y la pasa al servicio.
 - `PriceJpaRepository`: Encapsula el acceso a la base de datos.
 - `PriceRepositoryImpl`: Implementa la lógica de negocio definida en el repositorio de dominio, usando PriceJpaRepository.
 - `PriceJpaEntity`: Representa los datos de la base de datos (tabla "prices").
@@ -70,13 +70,24 @@ mvn test
 | 1        | 2020-06-15 00:00:00 | 2020-06-15 11:00:00 | 3          | 35455      | 1        | 30.50  | EUR      |
 | 1        | 2020-06-15 16:00:00 | 2020-12-31 23:59:59 | 4          | 35455      | 1        | 38.95  | EUR      |
 
+
 Dados estos datos iniciales, los tests de la aplicacion cubren los siguientes casos:
 
-| Test   | Fecha y Hora de Aplicación | Producto | Marca | Tarifa Aplicada Esperada | Precio Esperado |
-|--------|----------------------------|----------|-------|--------------------------|-----------------|
-| 1️⃣    | 2020-06-14 10:00           | 35455    | 1     | 1                         | 35.50          |
-| 2️⃣    | 2020-06-14 16:00           | 35455    | 1     | 2                         | 25.45          |
-| 3️⃣    | 2020-06-14 21:00           | 35455    | 1     | 1                         | 35.50          |
-| 4️⃣    | 2020-06-15 10:00           | 35455    | 1     | 3                         | 30.50          |
-| 5️⃣    | 2020-06-15 12:00           | 35455    | 1     | 1                         | 35.50          |
-| 6️⃣    | 2020-06-16 21:00           | 35455    | 1     | 4                         | 38.95          |
+
+| **Test** | **Fecha de Aplicación**         | **Marca** | **Producto** | **Resultados Esperados**                | **Request**                                                                                  |
+|----------|---------------------------------|-----------|--------------|-----------------------------------------|----------------------------------------------------------------------------------------------|
+| 1️⃣      | `2020-06-14 10:00:00`           | 1         | 35455        | `priceList`: 1<br>`price`: 35.50 EUR    | `http://localhost:8080/prices?productId=35455&brandId=1&applicationDate=2020-06-14T10:00:00` |
+| 2️⃣      | `2020-06-14 16:00:00`           | 1         | 35455        | `priceList`: 2<br>`price`: 25.45 EUR    | `http://localhost:8080/prices?productId=35455&brandId=1&applicationDate=2020-06-14T16:00:00` |
+| 3️⃣      | `2020-06-14 21:00:00`           | 1         | 35455        | `priceList`: 1<br>`price`: 35.50 EUR    | `http://localhost:8080/prices?productId=35455&brandId=1&applicationDate=2020-06-14T21:00:00` |
+| 4️⃣      | `2020-06-15 10:00:00`           | 1         | 35455        | `priceList`: 3<br>`price`: 30.50 EUR    | `http://localhost:8080/prices?productId=35455&brandId=1&applicationDate=2020-06-15T10:00:00` |
+| 5️⃣      | `2020-06-15 12:00:00`           | 1         | 35455        | `priceList`: 1<br>`price`: 35.50 EUR    | `http://localhost:8080/prices?productId=35455&brandId=1&applicationDate=2020-06-15T12:00:00` |
+| 6️⃣      | `2020-06-16 21:00:00`           | 1         | 35455        | `priceList`: 4<br>`price`: 38.95 EUR    | `http://localhost:8080/prices?productId=35455&brandId=1&applicationDate=2020-06-16T21:00:00` |
+
+
+
+
+
+
+
+
+
