@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface PriceRepository {
 
-    List<Price> findApplicablePrices(Long productId, Long brandId, LocalDateTime date);
+    List<Price> findApplicablePrices(Long productId, Long brandId, LocalDateTime applicatioDate);
 }

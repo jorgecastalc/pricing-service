@@ -10,13 +10,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface PriceMapper {
 
-    Price toDomain(PriceJpaEntity priceJpaEntity);
-
-    PriceJpaEntity toEntity(Price price);
-
     List<Price> toDomainList(List<PriceJpaEntity> priceJpaEntities);
-
-    List<PriceJpaEntity> toEntityList(List<Price> prices);
 
     PriceResponse toResponse(Price price);
 
